@@ -1,6 +1,6 @@
 package com.mid6night.servlets;
 
-import com.mid6night.dao.UserDao;
+import com.mid6night.dao.UserJdbcDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +13,8 @@ import java.io.IOException;
 public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao userDao = UserDao.getInstance();
-        userDao.deleteUser(Long.parseLong(req.getParameter("id")));
+        UserJdbcDAO userJdbcDAO = UserJdbcDAO.getInstance();
+        userJdbcDAO.deleteUser(Long.parseLong(req.getParameter("id")));
         resp.sendRedirect("/");
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.setContentType("text/html;charset=utf-8");

@@ -7,11 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao {
+public class UserJdbcDAO implements UserDAO{
     private Connection connection;
-    private static UserDao userDao;
+    private static UserJdbcDAO userJdbcDAO;
 
-    private UserDao() {
+    private UserJdbcDAO() {
         this.connection = DBConnect.getMysqlConnection();
         try {
             createTable();
@@ -20,11 +20,11 @@ public class UserDao {
         }
     }
 
-    public static UserDao getInstance() {
-        if (userDao == null) {
-            userDao = new UserDao();
+    public static UserJdbcDAO getInstance() {
+        if (userJdbcDAO == null) {
+            userJdbcDAO = new UserJdbcDAO();
         }
-        return userDao;
+        return userJdbcDAO;
     }
 
     public void createTable() throws SQLException {
@@ -40,16 +40,15 @@ public class UserDao {
         stmt.close();
     }
 
-    public boolean deleteUser(long id) {
+    public void deleteUser(long id) {
         try {
             Statement stmt = connection.createStatement();
             String query = "DELETE FROM users WHERE id = '" + id + "';";
             stmt.executeUpdate(query);
             stmt.close();
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
-        return true;
     }
 
     public List<User> getAllUser() {
@@ -73,7 +72,9 @@ public class UserDao {
         return users;
     }
 
-    public boolean addUser(User user) {
+
+
+    public void addUser(User user) {
         try {
             Statement stmt = connection.createStatement();
             stmt.execute("insert into users (name, age) values ('" +
@@ -81,9 +82,9 @@ public class UserDao {
                     user.getAge() + "')");
             stmt.close();
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
-        return true;
+
     }
 
     public User getUser(long id) {
@@ -104,7 +105,7 @@ public class UserDao {
         return user;
     }
 
-    public boolean updateUser(User user) {
+    public void updateUser(User user) {
         try {
             PreparedStatement stmt = connection.prepareStatement("update users set name = ?, age = ? where id = ?");
             stmt.setString(1, user.getName());
@@ -113,8 +114,8 @@ public class UserDao {
             stmt.executeUpdate();
             stmt.close();
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
-        return true;
+
     }
 }
