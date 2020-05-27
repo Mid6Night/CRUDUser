@@ -1,10 +1,10 @@
-package com.mid6night.dao;
+package com.mid6night.Services;
 
 import com.mid6night.entity.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserService {
     List<User> getAllUser();
 
     User getUser(long id);
