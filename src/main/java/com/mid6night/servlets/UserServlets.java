@@ -1,5 +1,7 @@
 package com.mid6night.servlets;
 
+import com.mid6night.Services.UserService;
+import com.mid6night.Services.UserServiceJdbc;
 import com.mid6night.dao.UserJdbcDAO;
 import com.mid6night.entity.User;
 
@@ -13,13 +15,13 @@ import java.util.List;
 
 @WebServlet(value = "/")
 public class UserServlets extends HttpServlet {
-
+    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserJdbcDAO userJdbcDAO = UserJdbcDAO.getInstance();
+        userService = UserServiceJdbc.getUserServiceJdbc();
 
-        List<User> users = userJdbcDAO.getAllUser();
+        List<User> users = userService.getAllUser();
 
         req.setAttribute("users",users);
 
