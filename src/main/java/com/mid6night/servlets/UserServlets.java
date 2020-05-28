@@ -1,8 +1,8 @@
 package com.mid6night.servlets;
 
 import com.mid6night.Services.UserService;
+import com.mid6night.Services.UserServiceHibernate;
 import com.mid6night.Services.UserServiceJdbc;
-import com.mid6night.dao.UserJdbcDAO;
 import com.mid6night.entity.User;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ public class UserServlets extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        userService = UserServiceJdbc.getUserServiceJdbc();
+        userService = UserServiceHibernate.getInstance();
     }
 
     @Override

@@ -1,25 +1,25 @@
 package com.mid6night.Services;
 
-
 import com.mid6night.dao.UserDAO;
-import com.mid6night.dao.UserJdbcDAO;
+import com.mid6night.dao.UserHibernateDAO;
+
 import com.mid6night.entity.User;
 
 import java.util.List;
 
-public class UserServiceJdbc implements UserService {
+public class UserServiceHibernate implements UserService {
     private UserDAO userDao;
-    private static UserServiceJdbc userServiceJdbc;
+    private static UserServiceHibernate userServiceHibernate;
 
-    private UserServiceJdbc() {
-        userDao = UserJdbcDAO.getInstance();
+    private UserServiceHibernate() {
+        userDao = UserHibernateDAO.getInstance();
     }
 
-    public static UserServiceJdbc getInstance() {
-        if (userServiceJdbc == null){
-            userServiceJdbc = new UserServiceJdbc();
+    public static UserServiceHibernate getInstance() {
+        if (userServiceHibernate == null) {
+            userServiceHibernate = new UserServiceHibernate();
         }
-        return userServiceJdbc;
+        return userServiceHibernate;
     }
 
     @Override
