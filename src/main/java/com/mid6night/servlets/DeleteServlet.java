@@ -17,8 +17,12 @@ public class DeleteServlet extends HttpServlet {
     private UserService userService;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void init() throws ServletException {
         userService = UserServiceJdbc.getUserServiceJdbc();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         userService.deleteUser(Long.parseLong(req.getParameter("id")));
         resp.sendRedirect("/");
         resp.setStatus(HttpServletResponse.SC_OK);

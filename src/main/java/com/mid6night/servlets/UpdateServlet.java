@@ -17,8 +17,12 @@ public class UpdateServlet extends HttpServlet {
     private UserService userService;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void init() throws ServletException {
         userService = UserServiceJdbc.getUserServiceJdbc();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User();
         user.setName(req.getParameter("name"));
         user.setAge(Integer.parseInt(req.getParameter("age")));
