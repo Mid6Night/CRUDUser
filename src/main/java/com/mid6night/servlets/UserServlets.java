@@ -15,11 +15,11 @@ import java.util.List;
 
 @WebServlet(value = "/")
 public class UserServlets extends HttpServlet {
-    private UserService userService = UserServiceJdbc.getUserServiceJdbc();
+    private UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        userService = UserServiceJdbc.getUserServiceJdbc();
         List<User> users = userService.getAllUser();
 
         req.setAttribute("users",users);
