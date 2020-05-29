@@ -1,6 +1,6 @@
 package com.mid6night.dao;
 
-import com.mid6night.DBConnect;
+import com.mid6night.DBHelper;
 import com.mid6night.entity.User;
 
 import java.sql.*;
@@ -12,7 +12,7 @@ public class UserJdbcDAO implements UserDAO {
     private static UserJdbcDAO userJdbcDAO;
 
     private UserJdbcDAO() {
-        this.connection = DBConnect.getMysqlConnection();
+        this.connection = DBHelper.getInstance().getConnection();
         createTable();
     }
 

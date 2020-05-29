@@ -1,5 +1,6 @@
 package com.mid6night.servlets;
 
+import com.mid6night.Services.Service;
 import com.mid6night.Services.UserService;
 import com.mid6night.Services.UserServiceHibernate;
 import com.mid6night.Services.UserServiceJdbc;
@@ -15,11 +16,11 @@ import java.io.IOException;
 
 @WebServlet("/update")
 public class UpdateServlet extends HttpServlet {
-    private UserService userService;
+    private UserService userService = Service.getInstance();
 
     @Override
     public void init() throws ServletException {
-        userService = UserServiceHibernate.getInstance();
+        userService = Service.getInstance();
     }
 
     @Override

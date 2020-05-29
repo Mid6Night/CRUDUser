@@ -1,8 +1,8 @@
 package com.mid6night.servlets;
 
+import com.mid6night.Services.Service;
 import com.mid6night.Services.UserService;
-import com.mid6night.Services.UserServiceHibernate;
-import com.mid6night.Services.UserServiceJdbc;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
-    private UserService userService;
-
-    @Override
-    public void init() throws ServletException {
-        userService = UserServiceHibernate.getInstance();
-    }
+    private UserService userService = Service.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
