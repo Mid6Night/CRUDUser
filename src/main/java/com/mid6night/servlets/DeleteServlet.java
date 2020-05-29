@@ -13,12 +13,8 @@ import java.io.IOException;
 
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
-    private UserService userService;
+    private UserService userService = UserServiceHibernate.getInstance();
 
-    @Override
-    public void init() throws ServletException {
-        userService = UserServiceHibernate.getInstance();
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
