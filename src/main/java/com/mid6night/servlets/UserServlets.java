@@ -15,12 +15,7 @@ import java.util.List;
 
 @WebServlet(value = "/")
 public class UserServlets extends HttpServlet {
-    private UserService userService;
-
-    @Override
-    public void init() throws ServletException {
-        userService = UserServiceJdbc.getUserServiceJdbc();
-    }
+    private UserService userService = UserServiceJdbc.getUserServiceJdbc();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

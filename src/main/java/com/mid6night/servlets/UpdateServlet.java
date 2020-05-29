@@ -14,12 +14,7 @@ import java.io.IOException;
 
 @WebServlet("/update")
 public class UpdateServlet extends HttpServlet {
-    private UserService userService;
-
-    @Override
-    public void init() throws ServletException {
-        userService = UserServiceJdbc.getUserServiceJdbc();
-    }
+    private UserService userService = UserServiceJdbc.getUserServiceJdbc();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
