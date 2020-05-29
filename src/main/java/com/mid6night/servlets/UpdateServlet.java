@@ -15,10 +15,11 @@ import java.io.IOException;
 
 @WebServlet("/update")
 public class UpdateServlet extends HttpServlet {
-    private UserService userService = UserServiceHibernate.getInstance();
+    private UserService userService ;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        userService = UserServiceHibernate.getInstance();
         User user = new User();
         user.setName(req.getParameter("name"));
         user.setAge(Integer.parseInt(req.getParameter("age")));
@@ -37,7 +38,7 @@ public class UpdateServlet extends HttpServlet {
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.setContentType("text/html;charset=utf-8");
         if (req.getParameter("id") != null) {
-            req.setAttribute("user", UserJdbcDAO.getInstance()
+            req.setAttribute("user", userService
                     .getUser(Long.parseLong(req.getParameter("id"))));
         }
         getServletContext().getRequestDispatcher("/updateUser.jsp").forward(req, resp);

@@ -17,55 +17,64 @@ public class UserHibernateDAO implements UserDAO {
     private static UserHibernateDAO userHibernateDAO;
     private static SessionFactory singleSessionFactory;
 
-    private UserHibernateDAO(Session session) {
-        this.session = session;
+    private UserHibernateDAO() {
+
     }
 
     public static UserHibernateDAO getInstance() {
         singleSessionFactory = getSessionFactory();
-        if (userHibernateDAO == null){
+        if (userHibernateDAO == null) {
             userHibernateDAO =
-                    new UserHibernateDAO(singleSessionFactory.openSession());
+                    new UserHibernateDAO();
         }
         return userHibernateDAO;
     }
 
     @Override
     public List<User> getAllUser() {
-        Transaction transaction = session.beginTransaction();
+        session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(User.class);
         List<User> cars = criteria.list();
-        transaction.commit();
+        session.close();
         return cars;
     }
 
     @Override
     public User getUser(long id) {
+        session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(User.class);
-        return (User) criteria.add(Restrictions.eq("id", id))
+        User user = (User) criteria.add(Restrictions.eq("id", id))
                 .uniqueResult();
+        session = sessionFactory.openSession();
+        return user;
     }
 
     @Override
     public void deleteUser(long id) {
+        session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.createQuery("DELETE FROM " + User.class.getName()
                 + " WHERE id = " + id).executeUpdate();
         transaction.commit();
+        session.close();
     }
 
     @Override
     public void addUser(User user) {
+        session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.save(user);
         transaction.commit();
+        session.close();
     }
 
     @Override
     public void updateUser(User user) {
+        session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(user);
         transaction.commit();
+        session.close();
     }
 
     private static SessionFactory sessionFactory;
