@@ -19,6 +19,7 @@ public class UserHibernateDAO implements UserDAO {
     private static SessionFactory singleSessionFactory;
 
     private UserHibernateDAO(Session session) {
+        session = sessionFactory.openSession();
     }
 
     public static UserHibernateDAO getInstance() {
