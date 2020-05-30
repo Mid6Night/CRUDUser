@@ -63,9 +63,9 @@ public class UserJdbcDAO implements UserDAO {
             ResultSet resultSet = stmt.getResultSet();
             while (resultSet.next()) {
                 User user = new User();
-                user.setId(resultSet.getLong(1));
-                user.setName(resultSet.getString(2));
-                user.setAge(resultSet.getInt(3));
+                user.setId(resultSet.getLong("id"));
+                user.setName(resultSet.getString("name"));
+                user.setAge(resultSet.getInt("age"));
                 users.add(user);
             }
             resultSet.close();
@@ -102,8 +102,8 @@ public class UserJdbcDAO implements UserDAO {
             stmt.execute("select * from users where id = '" + id + "'");
             ResultSet resultSet = stmt.getResultSet();
             resultSet.next();
-            user.setAge(resultSet.getInt(3));
-            user.setName(resultSet.getString(2));
+            user.setAge(resultSet.getInt("age"));
+            user.setName(resultSet.getString("name"));
             resultSet.close();
         } catch (Exception e) {
             e.printStackTrace();

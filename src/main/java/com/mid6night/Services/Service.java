@@ -13,7 +13,7 @@ public class Service implements UserService {
 
     private Service() {
         try {
-            userDAO = UserDaoFactory.getDao();
+            userDAO = new UserDaoFactory().getDao();
         } catch (IOException e) {
             e.printStackTrace();
         }
