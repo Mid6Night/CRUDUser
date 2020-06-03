@@ -20,7 +20,7 @@ public class Service implements UserService {
     }
 
     public static Service getInstance() {
-        if (service == null){
+        if (service == null) {
             service = new Service();
         }
         return service;
@@ -49,5 +49,10 @@ public class Service implements UserService {
     @Override
     public void updateUser(User user) {
         userDAO.updateUser(user);
+    }
+
+    @Override
+    public User findUser(String name, String password) {
+        return userDAO.findUser(name, password);
     }
 }

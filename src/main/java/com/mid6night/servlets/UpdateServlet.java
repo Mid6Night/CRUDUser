@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/update")
+@WebServlet("/admin/update")
 public class UpdateServlet extends HttpServlet {
     private UserService userService;
 
@@ -23,7 +23,8 @@ public class UpdateServlet extends HttpServlet {
         userService = Service.getInstance();
         User user = new User();
         user.setName(req.getParameter("name"));
-        user.setAge(Integer.parseInt(req.getParameter("age")));
+        user.setPassword(req.getParameter("password"));
+        user.setRole(req.getParameter("role"));
         if (req.getParameter("id") == null) {
             userService.addUser(user);
         } else {

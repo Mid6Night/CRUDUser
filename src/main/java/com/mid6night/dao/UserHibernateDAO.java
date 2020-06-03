@@ -51,6 +51,17 @@ public class UserHibernateDAO implements UserDAO {
     }
 
     @Override
+    public User findUser(String name, String password){
+        session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(User.class);
+        User user = (User) criteria.add(Restrictions.eq("name", name))
+                .add(Restrictions.eq("password", password))
+                .uniqueResult();
+        session.close();
+        return user;
+    }
+
+    @Override
     public void deleteUser(long id) {
         session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

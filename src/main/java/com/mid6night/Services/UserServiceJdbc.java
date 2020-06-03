@@ -16,10 +16,15 @@ public class UserServiceJdbc implements UserService {
     }
 
     public static UserServiceJdbc getInstance() {
-        if (userServiceJdbc == null){
+        if (userServiceJdbc == null) {
             userServiceJdbc = new UserServiceJdbc();
         }
         return userServiceJdbc;
+    }
+
+    @Override
+    public User findUser(String name, String password) {
+        return userDao.findUser(name, password);
     }
 
     @Override

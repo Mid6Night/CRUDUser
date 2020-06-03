@@ -28,6 +28,11 @@ public class UserServiceHibernate implements UserService {
     }
 
     @Override
+    public User findUser(String name, String password) {
+        return userDao.findUser(name, password);
+    }
+
+    @Override
     public User getUser(long id) {
         return userDao.getUser(id);
     }

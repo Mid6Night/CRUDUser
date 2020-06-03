@@ -14,13 +14,16 @@
 <%
 User user = (User) request.getAttribute("user");
 %>
-<form action="/update<%=(request.getParameter("id") == null)? "": "?id=" + request.getParameter("id")%>"
+<form action="/admin/update<%=(request.getParameter("id") == null)? "": "?id=" + request.getParameter("id")%>"
       method="post">
     <h1>Name</h1>
     <input type="text" name="name" value="<%=(user != null)?user.getName() : "" %>">
-    <h1>Age</h1>
-    <input type="text" name="age" value="<%=(user != null)?user.getAge() : "" %>">
+    <h1>Password</h1>
+    <input type="text" name="password" value="<%=(user != null)?user.getPassword() : "" %>">
+    <h1>Role</h1>
+    <input type="text" name="role" value="<%=(user != null)?user.getRole() : "" %>">
     <button type="submit">Save</button>
 </form>
+
 </body>
 </html>

@@ -29,7 +29,8 @@ public class UserJdbcDAO implements UserDAO {
                     "(\n" +
                     "\tid bigint auto_increment,\n" +
                     "\tname varchar(255) null,\n" +
-                    "\tage varchar(255) null,\n" +
+                    "\tpassword varchar(255) null,\n" +
+                    "\trole varchar(255) null,\n" +
                     "\tconstraint users_pk\n" +
                     "\t\tprimary key (id)\n" +
                     ");");
@@ -65,7 +66,8 @@ public class UserJdbcDAO implements UserDAO {
                 User user = new User();
                 user.setId(resultSet.getLong("id"));
                 user.setName(resultSet.getString("name"));
-                user.setAge(resultSet.getInt("age"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getString("role"));
                 users.add(user);
             }
             resultSet.close();
@@ -80,9 +82,10 @@ public class UserJdbcDAO implements UserDAO {
     public void addUser(User user) {
         try (Statement stmt = connection.createStatement()) {
             connection.setAutoCommit(false);
-            stmt.execute("insert into users (name, age) values ('" +
+            stmt.execute("insert into users (name, password, role) values ('" +
                     user.getName() + "', '" +
-                    user.getAge() + "')");
+                    user.getPassword() + "', '" +
+                    user.getRole() + "')");
             connection.commit();
         } catch (Exception e) {
             try {
@@ -102,8 +105,9 @@ public class UserJdbcDAO implements UserDAO {
             stmt.execute("select * from users where id = '" + id + "'");
             ResultSet resultSet = stmt.getResultSet();
             resultSet.next();
-            user.setAge(resultSet.getInt("age"));
             user.setName(resultSet.getString("name"));
+            user.setPassword(resultSet.getString("password"));
+            user.setRole(resultSet.getString("role"));
             resultSet.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,11 +116,12 @@ public class UserJdbcDAO implements UserDAO {
     }
 
     public void updateUser(User user) {
-        try (PreparedStatement stmt = connection.prepareStatement("update users set name = ?, age = ? where id = ?");) {
+        try (PreparedStatement stmt = connection.prepareStatement("update users set name = ?, age = ?, password = ?, role = ? where id = ?");) {
             connection.setAutoCommit(false);
             stmt.setString(1, user.getName());
-            stmt.setInt(2, user.getAge());
-            stmt.setLong(3, user.getId());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getRole());
+            stmt.setLong(4, user.getId());
             stmt.executeUpdate();
             connection.commit();
 
@@ -128,5 +133,23 @@ public class UserJdbcDAO implements UserDAO {
             }
             e.printStackTrace();
         }
+    }
+    @Override
+    public User findUser(String name, String password){
+        User user = new User();
+        user.setName(name);
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute("select * from users where name = '" + name + "'");
+            ResultSet resultSet = stmt.getResultSet();
+            resultSet.next();
+            user.setId(resultSet.getLong("id"));
+            user.setPassword(resultSet.getString("password"));
+            user.setRole(resultSet.getString("role"));
+            resultSet.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return user.getPassword().equals(password)?user : null;
     }
 }
