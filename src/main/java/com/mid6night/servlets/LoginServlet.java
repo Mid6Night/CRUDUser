@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         User user = userService.findUser(name, password);
 
         if (user == null) {
-            resp.sendRedirect("/user");
+            return;
         }
         req.getSession().setAttribute("user", user);
     }

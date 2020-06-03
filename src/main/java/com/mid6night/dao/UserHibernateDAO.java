@@ -94,6 +94,11 @@ public class UserHibernateDAO implements UserDAO {
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             sessionFactory = createSessionFactory();
+            User user = new User();
+            user.setName("admin");
+            user.setPassword("admin");
+            user.setRole("admin");
+            getInstance().addUser(user);
         }
         return sessionFactory;
     }

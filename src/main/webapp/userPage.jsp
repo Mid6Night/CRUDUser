@@ -15,6 +15,8 @@
     ${user.getId()}
     ${user.getName()}
 </h1>
-
+<form action="/" method="post">
+    <input type="submit" name="logout" value="Logout" />
+</form>
 </body>
 </html>

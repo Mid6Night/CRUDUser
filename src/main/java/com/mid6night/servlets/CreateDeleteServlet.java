@@ -2,6 +2,7 @@ package com.mid6night.servlets;
 
 import com.mid6night.Services.Service;
 import com.mid6night.Services.UserService;
+import com.mid6night.entity.User;
 
 
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/admin/delete")
-public class DeleteServlet extends HttpServlet {
+public class CreateDeleteServlet extends HttpServlet {
     private UserService userService;
 
     @Override
@@ -22,5 +23,15 @@ public class DeleteServlet extends HttpServlet {
         resp.sendRedirect("/admin");
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.setContentType("text/html;charset=utf-8");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        userService = Service.getInstance();
+        User user = new User();
+        user.setName(req.getParameter("name"));
+        user.setPassword(req.getParameter("password"));
+        user.setRole(req.getParameter("role"));
+        userService.addUser(user);
     }
 }

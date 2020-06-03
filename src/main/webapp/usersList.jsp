@@ -17,6 +17,7 @@
         <th>ID</th>
         <th>NAME</th>
         <th>Password</th>
+        <th>Role</th>
         <th>UPDATE</th>
         <th>DELETE</th>
     </tr>
@@ -53,5 +54,20 @@
     %>
 </table>
 
+<h3>
+    Add new user
+</h3>
+<form action="/admin/delete"  method="post">
+    <h3>login</h3>
+    <input type="text" required name="name" >
+    <h3>password</h3>
+    <input type="text" required name="password">
+    <h3>role</h3>
+    <input type="text" required name="role">
+    <button type="submit">add</button>
+</form>
+<form action="/" method="post">
+    <input type="submit" name="logout" value="Logout" />
+</form>
 </body>
 </html>

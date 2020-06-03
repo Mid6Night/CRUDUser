@@ -38,6 +38,10 @@ public class AdminFilter implements Filter {
             return;
         }
 
+        if (request.getParameter("logout") != null) {
+            session.invalidate();
+        }
+
         chain.doFilter(req, resp);
 
     }

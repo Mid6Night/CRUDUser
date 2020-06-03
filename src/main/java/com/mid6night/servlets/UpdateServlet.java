@@ -32,7 +32,7 @@ public class UpdateServlet extends HttpServlet {
             userService.updateUser(user);
         }
         resp.setStatus(HttpServletResponse.SC_OK);
-        resp.sendRedirect("/");
+        resp.sendRedirect("/admin");
     }
 
     @Override
